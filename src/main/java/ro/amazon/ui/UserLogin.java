@@ -1,4 +1,4 @@
-package ro.amazon.UI;
+package ro.amazon.ui;
 
 import ro.amazon.controller.UserController;
 import ro.amazon.exceptions.InvalidCredentialsException;
