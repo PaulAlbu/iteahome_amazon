@@ -2,33 +2,43 @@ package ro.amazon.service;
 
 import ro.amazon.dao.ProductDAO;
 import ro.amazon.entity.Product;
-import ro.amazon.exceptions.PriceErrorException;
+import ro.amazon.exceptions.PriceException;
 import ro.amazon.exceptions.ProductDatabaseException;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class ProductService {
     private ProductDAO productDAO = new ProductDAO();
 
-    public  ArrayList<Product> validateProductsList() throws PriceErrorException, ProductDatabaseException {
+    public ArrayList<Product> validateProductsList() throws PriceException, ProductDatabaseException {
 
-        try {
-            ArrayList<Product> productsList = productDAO.createProductsList();
-            for (Product product: productsList) {
-                if (product.getName() == null || product.getProductDescription() == null ){
-                    throw new ProductDatabaseException();
-                }
-                if (product.getPrice() <= 0){
-                    throw new PriceErrorException();
-                }
+        ArrayList<Product> productsList = productDAO.createProductsList();
+
+        deleteProductIfQuantityIsZero(productsList);
+
+        if (productsList.size()==0) {
+            throw new ProductDatabaseException();
+        }
+
+        for (Product product : productsList) {
+            if (product.getName() == null || product.getProductDescription() == null || productsList.size()==0) {
+                throw new ProductDatabaseException();
             }
-            return productsList;
+            if (product.getPrice() <= 0) {
+                throw new PriceException();
+            }
+        }
 
-        } catch (FileNotFoundException e){
-            System.out.println("Data base exception error");
-            System.out.println(e);
-            return null;
+        return productsList;
+    }
+
+    private void deleteProductIfQuantityIsZero(ArrayList<Product> productsList) {
+        for (int i = productsList.size() -1 ; i >= 0; i--) {
+            if (productsList.get(i).getQuantity() <= 0) {
+                productsList.remove(i);
+            }
         }
     }
+
+
 }
