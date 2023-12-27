@@ -29,7 +29,6 @@ public class UserDAO {
 
         } catch (IOException e) {
             Logger.debugInfo("Database error", e.fillInStackTrace());
-            throw new IllegalStateException("Database error", e);
         }
     }
 

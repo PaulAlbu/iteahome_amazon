@@ -10,9 +10,6 @@ import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.CREATE;
 
 public class Logger {
-    public static void userInfo(String text) {
-        System.out.println(text);
-    }
 
     public static void debugInfo(String text, Throwable error) {
         try {
