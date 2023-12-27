@@ -16,21 +16,21 @@ public class UserLogin {
 
         while (!isLoginSuccessful && loginAttempts < 3) {
             try {
-                Logger.userInfo("Username: ");
+                System.out.println("Username: ");
                 String username = Scan.scanner.next();
 
-                Logger.userInfo("Password: ");
+                System.out.println("Password: ");
                 String password = Scan.scanner.next();
 
                 userController.login(username, password);
                 isLoginSuccessful = true;
-                Logger.userInfo("Login successful");
+                System.out.println("Login successful");
             } catch (InvalidCredentialsException e) {
-                Logger.userInfo("Wrong user or password");
+                System.out.println("Wrong user or password");
                 isLoginSuccessful = false;
                 loginAttempts++;
             } catch (InvalidParameterException e) {
-                Logger.userInfo("Invalid credentials format");
+                System.out.println("Invalid credentials format");
                 isLoginSuccessful = false;
                 loginAttempts++;
             }
