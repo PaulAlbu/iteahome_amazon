@@ -2,9 +2,10 @@ package ro.amazon.ui;
 
 import ro.amazon.controller.UserController;
 import ro.amazon.exceptions.InvalidCredentialsException;
+import ro.amazon.utils.Logger;
+import ro.amazon.utils.Scan;
 
 import java.security.InvalidParameterException;
-import java.util.Scanner;
 
 public class UserLogin {
     UserController userController = new UserController();
@@ -16,17 +17,16 @@ public class UserLogin {
         while (!isLoginSuccessful && loginAttempts < 3) {
             try {
                 System.out.println("Username: ");
-                Scanner keyboard = new Scanner(System.in);
-                String username = keyboard.next();
+                String username = Scan.scanner.next();
 
                 System.out.println("Password: ");
-                String password = keyboard.next();
+                String password = Scan.scanner.next();
 
                 userController.login(username, password);
                 isLoginSuccessful = true;
                 System.out.println("Login successful");
             } catch (InvalidCredentialsException e) {
-                System.out.println("Invalid credentials");
+                System.out.println("Wrong user or password");
                 isLoginSuccessful = false;
                 loginAttempts++;
             } catch (InvalidParameterException e) {
