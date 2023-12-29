@@ -1,6 +1,7 @@
 package ro.amazon.dao;
 
 import ro.amazon.entity.User;
+import ro.amazon.utils.Logger;
 
 import java.io.IOException;
 import java.net.URI;
@@ -27,7 +28,7 @@ public class UserDAO {
             });
 
         } catch (IOException e) {
-            throw new IllegalStateException("Database error", e);
+            Logger.debugInfo("Database error", e.fillInStackTrace());
         }
     }
 
