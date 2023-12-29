@@ -4,6 +4,8 @@ import ro.amazon.exceptions.InvalidCredentialsException;
 import ro.amazon.service.UserService;
 
 import java.security.InvalidParameterException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserController {
     UserService userService = new UserService();
