@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class UserDAO {
-    private final List<User> userList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
 
     public UserDAO() {
 
