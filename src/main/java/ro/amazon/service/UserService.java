@@ -6,7 +6,7 @@ import ro.amazon.entity.User;
 import ro.amazon.exceptions.InvalidCredentialsException;
 
 public class UserService {
-    UserDAO userDAO = new UserDAO();
+    private final UserDAO userDAO = new UserDAO();
 
     public void login(String username, String password) throws InvalidCredentialsException {
         for (User user : userDAO.getUserList()) {
