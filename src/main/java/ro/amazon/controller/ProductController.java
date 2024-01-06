@@ -8,7 +8,21 @@ import ro.amazon.service.ProductService;
 import java.util.ArrayList;
 
 public class ProductController {
+
+    // Singleton pattern to create a single instance of the Product controller to be accessed in the UI
+    private static ProductController productController;
+    private ProductController() {
+    }
+    public static ProductController getProductController(){
+        if (productController == null){
+            productController = new ProductController();
+        }
+        return productController;
+    }
+
+
     private ProductService productService = new ProductService();
+
 
     public void displayProductsList() throws PriceException, ProductDatabaseException {
 

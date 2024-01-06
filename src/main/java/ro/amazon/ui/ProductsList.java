@@ -4,13 +4,15 @@ import ro.amazon.controller.ProductController;
 import ro.amazon.exceptions.PriceException;
 import ro.amazon.exceptions.ProductDatabaseException;
 
+import static ro.amazon.controller.ProductController.getProductController;
+
 public class ProductsList {
-    private ProductController productController = new ProductController();
+
         public void displayProductsList() {
 
             try {
                 System.out.println("Please find below our list of available products:\n");
-                productController.displayProductsList();
+                ProductController.getProductController().displayProductsList();
             } catch (PriceException e) {
                 System.out.println(e.getMessage());
 

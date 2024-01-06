@@ -20,7 +20,7 @@ public class UserLogin {
                 System.out.println("Password: ");
                 String password = Scan.scanner.next();
 
-               UserController.getInstance().login(username, password);
+                UserController.getInstance().login(username, password);
                 isLoginSuccessful = true;
                 System.out.println("Login successful");
             } catch (InvalidCredentialsException e) {
