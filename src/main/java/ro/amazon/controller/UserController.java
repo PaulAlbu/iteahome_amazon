@@ -2,17 +2,32 @@ package ro.amazon.controller;
 
 import ro.amazon.exceptions.InvalidCredentialsException;
 import ro.amazon.service.UserService;
+import ro.amazon.ui.HomePage;
 
 import java.security.InvalidParameterException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class UserController {
-    UserService userService = new UserService();
+    private final UserService userService = new UserService();
+    private static UserController userController;
+
+    private UserController() {
+    }
+
+    public static UserController getInstance() {
+        if (userController == null) {
+            userController = new UserController();
+        }
+        return userController;
+    }
 
     public void login(String username, String password) throws InvalidCredentialsException {
         validateCredentials(username, password);
         userService.login(username, password);
+    }
+
+    public void signOut() {
+        userService.signOut();
+        new HomePage().showHomePage();
     }
 
     private void validateCredentials(String username, String password) {

@@ -13,8 +13,14 @@ public class ProductController {
     public void displayProductsList() throws PriceException, ProductDatabaseException {
 
         ArrayList<Product> productsList = productService.validateProductsList();
+        int productsIndex = 1;
         for (Product product : productsList) {
-            System.out.println(product.getName() + "; Specifications: " + product.getProductDescription() + "; Price: " + product.getPrice() + " EUR" + "; Quantity left: " + product.getQuantity());
+            System.out.println(productsIndex + ". "
+                    + product.getName()
+                    + "; Specifications: " + product.getProductDescription()
+                    + "; Price: " + product.getPrice() + " EUR"
+                    + "; Quantity left: " + product.getQuantity());
+            productsIndex++;
         }
     }
 }
