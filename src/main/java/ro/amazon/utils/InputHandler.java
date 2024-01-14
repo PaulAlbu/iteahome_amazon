@@ -7,10 +7,10 @@ import java.util.Scanner;
 
 public class InputHandler {
     public static int validateAndReturnIntegerInput(Scanner scanner) throws WrongInputException {
+        String input = scanner.nextLine();
         try {
-            return scanner.nextInt();
-        } catch (InputMismatchException e) {
-            scanner.next();
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
             throw new WrongInputException(e);
         }
 

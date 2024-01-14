@@ -1,26 +1,37 @@
 package ro.amazon.service;
 
-import ro.amazon.controller.BasketController;
+import ro.amazon.ApplicationContext;
+import ro.amazon.dao.BasketDAO;
 import ro.amazon.entity.Product;
-import ro.amazon.utils.Scan;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class BasketService {
-
-
-    private HashMap<Product, Integer> productsAndQuantity = new HashMap<>();
-
-    public void basket(Product product, int quantityRequestedByBuyer) {
-        productsAndQuantity.put(product, quantityRequestedByBuyer);
+    private BasketDAO basketDAO = new BasketDAO();
+    public void addProductsToBasket(Product product, int quantityRequestedByBuyer) {
+        HashMap<Product, Integer> basket = ApplicationContext.getCurrentUserBasket();
+        if (basket.containsKey(product)) {
+            Integer newQuantity = quantityRequestedByBuyer + basket.get(product);
+            ApplicationContext.getCurrentUserBasket().put(product, newQuantity);
+        }else{
+            basket.put(product, quantityRequestedByBuyer);
+        }
     }
 
-    public HashMap<Product, Integer> getProductsAndQuantity() {
-        return productsAndQuantity;
+    public void removeProductsQuantityFromBasket(Product product, int quantityToBeRemoved) {
+        HashMap<Product, Integer> basket = ApplicationContext.getCurrentUserBasket();
+        Integer newQuantity = basket.get(product) - quantityToBeRemoved;
+        basket.put(product, newQuantity);
+        basketDAO.addProductQuantityBackToTheStock(product.getProductID(), quantityToBeRemoved);
+
     }
 
+    public HashMap<Product, Integer> getBasket() {
+        return ApplicationContext.getCurrentUserBasket();
+    }
+
+    public void clearBasket() {
+        ApplicationContext.getCurrentUserBasket().clear();
+    }
 
 }

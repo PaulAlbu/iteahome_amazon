@@ -6,8 +6,6 @@ import ro.amazon.exceptions.PriceException;
 import ro.amazon.exceptions.ProductDatabaseException;
 import ro.amazon.exceptions.WrongInputException;
 
-import java.util.Scanner;
-
 import static ro.amazon.utils.InputHandler.validateAndReturnIntegerInput;
 import static ro.amazon.utils.Logger.debugInfo;
 import static ro.amazon.utils.Scan.scanner;
@@ -75,8 +73,8 @@ public class ProductsList {
 
         if (stopAddingProductsToBasket == 0) {
             continueAddingProductsToBasket = false;
-            Basket basket = new Basket();
-            basket.displayBasket();
+            BasketPage basketPage = new BasketPage();
+            basketPage.displayBasket();
             return continueAddingProductsToBasket;
 
         } else {

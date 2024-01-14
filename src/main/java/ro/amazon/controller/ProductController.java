@@ -30,6 +30,8 @@ public class ProductController {
     }
 
     private ProductService productService = new ProductService();
+
+
     private BasketService basketService = new BasketService();
     private ArrayList<Product> productsList = productService.validateProductsList();
 
@@ -68,7 +70,7 @@ public class ProductController {
 
                 if (quantityRequestedByBuyer <= product.getQuantity() && quantityRequestedByBuyer >0 ) {
                     product.setQuantity(product.getQuantity() - quantityRequestedByBuyer);
-                    basketService.basket(product, quantityRequestedByBuyer);
+                    basketService.addProductsToBasket(product, quantityRequestedByBuyer);
                     productService.checkout(product.getProductID(), quantityRequestedByBuyer);
                 } else {
                     throw new ExcessiveSelectedQuantityException();
