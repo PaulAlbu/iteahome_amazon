@@ -13,7 +13,7 @@ public class Logger {
 
     public static void debugInfo(String text, Throwable error) {
         try {
-            File logs = new File("debugLogs.txt");
+            File logs = new File("debugLogs_new_version.txt");
             if (logs.createNewFile()) {
                 logMessagesInFile(text, error);
             } else {
@@ -27,7 +27,7 @@ public class Logger {
 
     private static void logMessagesInFile(String text, Throwable error) throws IOException {
         Files.writeString(
-                Path.of(".", "debugLogs.txt"),
+                Path.of(".", "debugLogs_new_version.txt"),
                 System.lineSeparator() + text
                         + System.lineSeparator() + Arrays.toString(error.getStackTrace()),
                 CREATE, APPEND
