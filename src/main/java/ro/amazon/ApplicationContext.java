@@ -24,7 +24,6 @@ public class ApplicationContext {
     }
 
 
-    // La logout sa dau clear la currentUserBasket
 
 
 }
