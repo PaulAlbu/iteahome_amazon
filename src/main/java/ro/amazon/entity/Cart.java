@@ -1,6 +1,7 @@
 package ro.amazon.entity;
 
-public class Cart {
+public class Cart{
+
     // cart asignat per user
     //lista de produse
     // afiseze produse
