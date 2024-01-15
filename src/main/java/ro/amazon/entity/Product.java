@@ -4,16 +4,24 @@ public class Product {
     private String name;
     private String productDescription;
     private double price;
-
-
     private Integer quantity;
 
+    private Integer productID;
 
-    public Product(String name, String productDescription, double price, Integer quantity) {
+    public Integer getProductID() {
+        return productID;
+    }
+
+    public void setProductID(Integer productID) {
+        this.productID = productID;
+    }
+
+    public Product(String name, String productDescription, double price, Integer quantity, Integer prodcutID) {
         this.name = name;
         this.productDescription = productDescription;
         this.price = price;
         this.quantity = quantity;
+        this.productID = prodcutID;
     }
 
 

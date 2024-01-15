@@ -21,5 +21,7 @@ public class UserService {
 
     public void signOut() {
         ApplicationContext.setCurrentUser(null);
+        BasketService basketService = new BasketService(); //clear the Users basket when logging out
+        basketService.clearBasket();
     }
 }

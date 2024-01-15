@@ -1,43 +1,10 @@
 package ro.amazon.dao;
 
-import ro.amazon.entity.Product;
-import ro.amazon.exceptions.ProductDatabaseException;
-
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ProductDAO {
-    private ArrayList<Product> productsArr = new ArrayList<>();
-
-    public ArrayList<Product> createProductsList() throws ProductDatabaseException {
-
-        try {
-            Scanner scanner = new Scanner(new File("src/main/resources/Products.txt"));
-            while (scanner.hasNextLine()) {
-                String[] daoProd = scanner.nextLine().split(";");
-                String name = daoProd[0].trim();
-                String description = daoProd[1].trim();
-                Double price = Double.valueOf(daoProd[2].trim());
-                Integer quantity = Integer.valueOf(daoProd[3].trim());
-                Integer prodcutID = Integer.valueOf(daoProd[4].trim());
-
-
-                Product product = new Product(name, description, price, quantity, prodcutID);
-                productsArr.add(product);
-            }
-            scanner.close();
-
-        } catch (FileNotFoundException e) {
-            throw new ProductDatabaseException(e);
-        } catch (NumberFormatException e) {
-            throw new ProductDatabaseException(e);
-        }
-
-        return productsArr;
-    }
-
-    public void decreaseProductQuantity(int productID, int quantityRequestedByBuyer) {
+public class BasketDAO {
+    public void addProductQuantityBackToTheStock (int productID, int quantityRemovedByBuyer) {
         String filePath = "src/main/resources/Products.txt";
         int lineNumberToEdit = productID; // Change to the line number you want to edit
 
@@ -57,7 +24,7 @@ public class ProductDAO {
                     String name = prodLine[0].trim();
                     String description = prodLine[1].trim();
                     Double prodPrice = Double.valueOf(prodLine[2].trim());
-                    int quantity = Integer.valueOf(prodLine[3].trim()) - quantityRequestedByBuyer;
+                    int quantity = Integer.valueOf(prodLine[3].trim()) + quantityRemovedByBuyer;
                     int productId = productID;
 
                     String newText = name + ";" + description + ";" + prodPrice + ";" + quantity + ";" + productId;
@@ -78,7 +45,6 @@ public class ProductDAO {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
-
-
 }
