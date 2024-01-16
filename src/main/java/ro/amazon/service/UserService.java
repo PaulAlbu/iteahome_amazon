@@ -5,6 +5,8 @@ import ro.amazon.dao.UserDAO;
 import ro.amazon.entity.User;
 import ro.amazon.exceptions.InvalidCredentialsException;
 
+import java.io.IOException;
+
 public class UserService {
     private final UserDAO userDAO = new UserDAO();
 
@@ -23,5 +25,17 @@ public class UserService {
         ApplicationContext.setCurrentUser(null);
         BasketService basketService = new BasketService(); //clear the Users basket when logging out
         basketService.clearBasket();
+    }
+
+    public void createNewUser(String username, String password, String mail) throws InvalidCredentialsException, IOException {
+
+        for (User user : userDAO.getUserList()) {
+            if (username.equalsIgnoreCase(user.getUsername())) {
+                throw new InvalidCredentialsException();
+            }
+        }
+
+        User newUser = new User(username, password, mail);
+        userDAO.save(newUser);
     }
 }

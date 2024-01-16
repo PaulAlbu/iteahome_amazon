@@ -24,7 +24,7 @@ public class BasketController {
     private BasketController() {
     }
 
-    public static BasketController getBasketController() {
+    public static BasketController getBasketInstance() {
         if (basketController == null) {
             basketController = new BasketController();
         }
@@ -116,13 +116,13 @@ public class BasketController {
     public void checkoutForm() {
         boolean validateCheckoutDetailsAreCorrect = false;
 
-        while (validateCheckoutDetailsAreCorrect == false) {
+        while (!validateCheckoutDetailsAreCorrect) {
             System.out.println("Please enter your full name:");
             String fullName = Scan.scanner.nextLine();
 
             System.out.println("Please enter your email address");
             String mail = Scan.scanner.nextLine();
-            while (emailValidator(mail) == false) {
+            while (!emailValidator(mail)) {
                 System.out.println("Please insert a valid email address");
                 mail = Scan.scanner.nextLine();
             }

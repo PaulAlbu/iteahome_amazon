@@ -25,7 +25,6 @@ public class ProductsList {
         } catch (ProductDatabaseException e) {
             System.out.println(e.getMessage());
             debugInfo(e.getMessage(), e.fillInStackTrace());
-
         }
     }
 
