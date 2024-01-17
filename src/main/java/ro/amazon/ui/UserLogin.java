@@ -15,10 +15,10 @@ public class UserLogin {
         while (!isLoginSuccessful && loginAttempts < 3) {
             try {
                 System.out.println("Username: ");
-                String username = Scan.scanner.next();
+                String username = Scan.scanner.nextLine();
 
                 System.out.println("Password: ");
-                String password = Scan.scanner.next();
+                String password = Scan.scanner.nextLine();
 
                 UserController.getInstance().login(username, password);
                 isLoginSuccessful = true;

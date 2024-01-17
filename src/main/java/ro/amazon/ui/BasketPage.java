@@ -7,6 +7,6 @@ public class BasketPage {
     // cos empety - no prod selected
     // dispplayBascket
     public void displayBasket(){
-        BasketController.getBasketController().displayBasket();
+        BasketController.getBasketInstance().displayBasket();
     }
 }

@@ -24,7 +24,7 @@ public class BasketController {
     private BasketController() {
     }
 
-    public static BasketController getBasketController() {
+    public static BasketController getBasketInstance() {
         if (basketController == null) {
             basketController = new BasketController();
         }
@@ -51,11 +51,13 @@ public class BasketController {
     }
 
     public void editBasketOrGoToCheckout(HashMap<Product, Integer> basket) {
-        System.out.println("Would you like to go to checkout (press 0) or any other nr to edit the basket");
+        System.out.println("Would you like to go to checkout (press 0) / edit the basket (press 1) / sign-out (press -1)");
         try {
             int chekoutOrEditBasket = InputHandler.validateAndReturnIntegerInput(Scan.scanner);
 
-            if (chekoutOrEditBasket == 0) {
+            if (chekoutOrEditBasket == -1) {
+                UserController.getInstance().signOut();
+            } else if (chekoutOrEditBasket == 0) {
                 checkoutForm();
             } else {
                 boolean editBasket = true;
@@ -73,7 +75,7 @@ public class BasketController {
                         }
                     }
 
-                    System.out.println("Please select list what is the quantity you would like to be decreased: ");
+                    System.out.println("Please enter new quantity: ");
                     int quantityToBeDecreased = InputHandler.validateAndReturnIntegerInput(Scan.scanner);
 
                     int i = 1;
@@ -116,13 +118,13 @@ public class BasketController {
     public void checkoutForm() {
         boolean validateCheckoutDetailsAreCorrect = false;
 
-        while (validateCheckoutDetailsAreCorrect == false) {
+        while (!validateCheckoutDetailsAreCorrect) {
             System.out.println("Please enter your full name:");
             String fullName = Scan.scanner.nextLine();
 
             System.out.println("Please enter your email address");
             String mail = Scan.scanner.nextLine();
-            while (emailValidator(mail) == false) {
+            while (!emailValidator(mail)) {
                 System.out.println("Please insert a valid email address");
                 mail = Scan.scanner.nextLine();
             }
@@ -139,12 +141,13 @@ public class BasketController {
                     "Address: %s%n" +
                     "Phone Nr: %s%n", fullName, mail, address, phoneNr);
             displayFinalBasket();
-            System.out.printf("Are your details correct? Press y if yes, or n if no.\n" +
-                    "If n, we shall ask again for the correct order details.");
+            System.out.printf("Are your details correct? Press y to confirm, or n to edit, or -1 to sign-out: ");
             String checkoutDetailsAreCorrect = Scan.scanner.nextLine();
             if (checkoutDetailsAreCorrect.toLowerCase().equals("y")) {
                 validateCheckoutDetailsAreCorrect = true;
                 System.out.println("Order has been sent");
+            } else if (checkoutDetailsAreCorrect.equals("-1")) {
+                UserController.getInstance().signOut();
             }
         }
     }

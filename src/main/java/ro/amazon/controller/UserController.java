@@ -4,6 +4,7 @@ import ro.amazon.exceptions.InvalidCredentialsException;
 import ro.amazon.service.UserService;
 import ro.amazon.ui.HomePage;
 
+import java.io.IOException;
 import java.security.InvalidParameterException;
 
 public class UserController {
@@ -30,8 +31,17 @@ public class UserController {
         new HomePage().showHomePage();
     }
 
+    public void createNewUser(String username, String password, String mail) throws InvalidCredentialsException, IOException {
+        validateCredentials(username, password);
+        if (!BasketController.getBasketInstance().emailValidator(mail)) {
+            throw new InvalidParameterException("Invalid email");
+        }
+
+        userService.createNewUser(username, password, mail);
+    }
+
     private void validateCredentials(String username, String password) {
-        if (username.length() < 5) {
+        if (username.length() < 5 || username.contains(";")) {
             throw new InvalidParameterException("Invalid credentials");
         }
 

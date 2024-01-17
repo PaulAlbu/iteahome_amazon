@@ -6,8 +6,6 @@ import ro.amazon.exceptions.PriceException;
 import ro.amazon.exceptions.ProductDatabaseException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
 
 public class ProductService {
     private ProductDAO productDAO = new ProductDAO();
