@@ -20,8 +20,7 @@ public class BasketService {
 
     public void removeProductsQuantityFromBasket(Product product, int quantityToBeRemoved) {
         HashMap<Product, Integer> basket = ApplicationContext.getCurrentUserBasket();
-        Integer newQuantity = basket.get(product) - quantityToBeRemoved;
-        basket.put(product, newQuantity);
+        basket.put(product, quantityToBeRemoved);
         basketDAO.addProductQuantityBackToTheStock(product.getProductID(), quantityToBeRemoved);
 
     }

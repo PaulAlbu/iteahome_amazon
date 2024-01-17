@@ -41,7 +41,7 @@ public class HomePage {
         if (userLogin.login()) {
 
             while (true) {
-                System.out.println(" If you want to leave type '-1' \n Press any other nr to buy a product");
+                System.out.println(" - If you want to leave type -1 \n - To buy a product type 1)");
 
                 productsList.displayProductsList();
 

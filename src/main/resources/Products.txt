@@ -1,3 +1,3 @@
-Toy car;50cm per 20cm per 7 cm;15.99;7431;1
-Hammer;7kg;19.99;6502;2
-Drum set;50cm per 20cm per 7 cm;15.99;215;3
+Toy car;50cm per 20cm per 7 cm;15.99;5000;1
+Hammer;7kg;19.99;6000;2
+Drum set;50cm per 20cm per 7 cm;15.99;213;3

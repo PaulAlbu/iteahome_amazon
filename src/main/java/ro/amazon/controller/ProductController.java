@@ -33,6 +33,11 @@ public class ProductController {
 
 
     private BasketService basketService = new BasketService();
+
+    public ArrayList<Product> getProductsList() {
+        return productsList;
+    }
+
     private ArrayList<Product> productsList = productService.validateProductsList();
 
 

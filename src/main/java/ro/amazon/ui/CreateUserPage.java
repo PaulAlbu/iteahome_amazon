@@ -32,16 +32,16 @@ public class CreateUserPage {
                 System.out.println("Username should be at least 5 characters long \n" +
                         "can not contain symbol \";\"");
                 System.out.println("Username: ");
-                String username = Scan.scanner.next();
+                String username = Scan.scanner.nextLine();
 
                 System.out.println("Password should be at least 5 characters long \n" +
                         "contain at least 1 uppercase and 1 lowercase letter \n" +
                         "contain at least 1 digit and 1 symbol");
                 System.out.println("Password: ");
-                String password = Scan.scanner.next();
+                String password = Scan.scanner.nextLine();
 
                 System.out.println("Please enter your email address");
-                String mail = Scan.scanner.next();
+                String mail = Scan.scanner.nextLine();
 
                 UserController.getInstance().createNewUser(username, password, mail);
                 isUserCreatedSuccessfully = true;
