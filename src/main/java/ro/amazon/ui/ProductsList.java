@@ -1,10 +1,13 @@
 package ro.amazon.ui;
 
 import ro.amazon.controller.ProductController;
+import ro.amazon.controller.UserController;
 import ro.amazon.exceptions.ExcessiveSelectedQuantityException;
 import ro.amazon.exceptions.PriceException;
 import ro.amazon.exceptions.ProductDatabaseException;
 import ro.amazon.exceptions.WrongInputException;
+import ro.amazon.utils.InputHandler;
+import ro.amazon.utils.Scan;
 
 import static ro.amazon.utils.InputHandler.validateAndReturnIntegerInput;
 import static ro.amazon.utils.Logger.debugInfo;
@@ -34,8 +37,13 @@ public class ProductsList {
 
         while (continueAddingProductsToBasket) {
             System.out.println("Please select the product/ products you desire by selecting them via their numbers");
+            System.out.println("For signout press -1");
 
             int clientProdSelection = 0;
+
+            if (clientProdSelection == -1) {
+                UserController.getInstance().signOut();
+            }
             try {
                 clientProdSelection = validateAndReturnIntegerInput(scanner);
             } catch (WrongInputException e) {

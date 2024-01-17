@@ -8,10 +8,10 @@ public class Application {
         HomePage homePage = new HomePage();
         homePage.showHomePage();
 
-        //In showHomePage() trebuei facuta legaura intre cele de mai jos
-        ProductsList productsList = new ProductsList();
-        productsList.displayProductsList();
-        productsList.addProductsToBasket();
+//        //In showHomePage() trebuei facuta legaura intre cele de mai jos
+//        ProductsList productsList = new ProductsList();
+//        productsList.displayProductsList();
+//        productsList.addProductsToBasket();
 
     }
 

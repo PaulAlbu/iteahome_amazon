@@ -26,7 +26,7 @@ public class CreateUserPage {
 
         System.out.println("Let's get started...");
 
-        while (!isUserCreatedSuccessfully)
+        while (!isUserCreatedSuccessfully) {
             try {
 
                 System.out.println("Username should be at least 5 characters long \n" +
@@ -55,6 +55,6 @@ public class CreateUserPage {
             } catch (IOException e) {
                 System.out.println("Database is not available right now, please try again later");
             }
-
+        }
     }
 }
