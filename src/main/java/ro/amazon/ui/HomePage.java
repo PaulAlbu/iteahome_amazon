@@ -41,7 +41,7 @@ public class HomePage {
         if (userLogin.login()) {
 
             while (true) {
-                System.out.println(" - If you want to leave type -1 \n - To buy a product type 1)");
+                System.out.println(" - If you want to leave type -1 \n - To buy a product type 1");
 
                 productsList.displayProductsList();
 
@@ -52,8 +52,9 @@ public class HomePage {
                         UserController.getInstance().signOut();
                     } else {
                         productsList.addProductsToBasket();
+                        System.out.println("\n---");
                     }
-                    break;
+
                 } catch (Exception e) {
                     System.out.println("Wrong input");
                 }
