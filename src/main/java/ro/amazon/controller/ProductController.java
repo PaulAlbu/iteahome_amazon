@@ -40,7 +40,7 @@ public class ProductController {
 
 
     public ArrayList<Product> getProductsList() throws PriceException, ProductDatabaseException {
-         ArrayList<Product> productsList = new ArrayList<>();
+        ArrayList<Product> productsList = new ArrayList<>();
         return productsList = productService.validateProductsList();
     }
 
@@ -57,6 +57,9 @@ public class ProductController {
                 System.out.println("Please select quantity:");
                 try {
                     quantityRequestedByBuyer = validateAndReturnIntegerInput(scanner);
+                    if (quantityRequestedByBuyer <= 0) {
+                        throw new WrongInputException();
+                    }
                 } catch (WrongInputException e) {
                     System.out.println(e.getMessage());
                     debugInfo(e.getMessage(), e.fillInStackTrace());
