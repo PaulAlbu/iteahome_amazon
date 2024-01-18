@@ -23,10 +23,11 @@ public class CreateUserPage {
 
     public void createNewUser() {
         boolean isUserCreatedSuccessfully = false;
+        int userCreationAttempts = 0;
 
         System.out.println("Let's get started...");
 
-        while (!isUserCreatedSuccessfully) {
+        while (!isUserCreatedSuccessfully && userCreationAttempts < 3) {
             try {
 
                 System.out.println("Username should be at least 5 characters long \n" +
@@ -49,12 +50,16 @@ public class CreateUserPage {
 
             } catch (InvalidCredentialsException e) {
                 System.out.println("Username already exists. Try again with a different username");
+                userCreationAttempts++;
             } catch (InvalidParameterException e) {
                 System.out.println("Invalid credentials format. " +
                         "Please use valid format for username password and email");
+                userCreationAttempts++;
             } catch (IOException e) {
                 System.out.println("Database is not available right now, please try again later");
+                userCreationAttempts++;
             }
         }
+        System.out.println("User creation failed too many times, you will be redirected to home page!!!");
     }
 }

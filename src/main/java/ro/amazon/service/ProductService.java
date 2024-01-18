@@ -12,7 +12,8 @@ public class ProductService {
 
     public ArrayList<Product> validateProductsList() throws PriceException, ProductDatabaseException {
 
-        ArrayList<Product> productsList = productDAO.createProductsList();
+        ArrayList<Product> productsList = new ArrayList<>();
+        productsList = productDAO.createProductsList();
 
         deleteProductIfQuantityIsZero(productsList);
 

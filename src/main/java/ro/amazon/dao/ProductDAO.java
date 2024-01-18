@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ProductDAO {
-    private ArrayList<Product> productsArr = new ArrayList<>();
+
 
     public ArrayList<Product> createProductsList() throws ProductDatabaseException {
-
+        ArrayList<Product> productsArr = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(new File("src/main/resources/Products.txt"));
             while (scanner.hasNextLine()) {
