@@ -34,29 +34,19 @@ public class ProductController {
 
     private BasketService basketService = new BasketService();
 
-    public ArrayList<Product> getProductsList() {
-        return productsList;
+//    public ArrayList<Product> getProductsList() {
+//        return productsList;
+//    }
+
+
+    public ArrayList<Product> getProductsList() throws PriceException, ProductDatabaseException {
+        ArrayList<Product> productsList = new ArrayList<>();
+        return productsList = productService.validateProductsList();
     }
 
-    private ArrayList<Product> productsList = productService.validateProductsList();
-
-
-    public void displayProductsList() {
-
+    public void addProductsToBascket(int clientProdSelection) throws ProductDatabaseException, ExcessiveSelectedQuantityException, WrongInputException, PriceException {
         int productsIndex = 1;
-        for (Product product : productsList) {
-            System.out.println(productsIndex + ". "
-                    + product.getName()
-                    + "; Specifications: " + product.getProductDescription()
-                    + "; Price: " + product.getPrice() + " EUR"
-                    + "; Quantity left: " + product.getQuantity());
-            productsIndex++;
-        }
-
-    }
-
-    public void addProductsToBascket(int clientProdSelection) throws ProductDatabaseException, ExcessiveSelectedQuantityException, WrongInputException {
-        int productsIndex = 1;
+        ArrayList<Product> productsList = getProductsList();
         if (clientProdSelection > productsList.size()) {
             throw new WrongInputException();
         }
@@ -67,13 +57,16 @@ public class ProductController {
                 System.out.println("Please select quantity:");
                 try {
                     quantityRequestedByBuyer = validateAndReturnIntegerInput(scanner);
+                    if (quantityRequestedByBuyer <= 0) {
+                        throw new WrongInputException();
+                    }
                 } catch (WrongInputException e) {
                     System.out.println(e.getMessage());
                     debugInfo(e.getMessage(), e.fillInStackTrace());
                     addProductsToBascket(clientProdSelection);
                 }
 
-                if (quantityRequestedByBuyer <= product.getQuantity() && quantityRequestedByBuyer >0 ) {
+                if (quantityRequestedByBuyer <= product.getQuantity() && quantityRequestedByBuyer > 0) {
                     product.setQuantity(product.getQuantity() - quantityRequestedByBuyer);
                     basketService.addProductsToBasket(product, quantityRequestedByBuyer);
                     productService.checkout(product.getProductID(), quantityRequestedByBuyer);

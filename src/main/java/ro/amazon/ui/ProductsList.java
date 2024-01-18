@@ -8,10 +8,8 @@ import ro.amazon.exceptions.PriceException;
 import ro.amazon.exceptions.ProductDatabaseException;
 import ro.amazon.exceptions.WrongInputException;
 import ro.amazon.service.BasketService;
-import ro.amazon.utils.InputHandler;
-import ro.amazon.utils.Scan;
 
-import java.util.Map;
+import java.util.ArrayList;
 
 import static ro.amazon.utils.InputHandler.validateAndReturnIntegerInput;
 import static ro.amazon.utils.Logger.debugInfo;
@@ -21,22 +19,35 @@ import static ro.amazon.utils.Scan.scanner;
 public class ProductsList {
     BasketService basketService = new BasketService();
 
-    public void displayProductsList() {
+    public int displayProductsList() {
 
         try {
             System.out.println("Please find below our list of available products:\n");
-            ProductController.getProductController().displayProductsList();
+            ArrayList<Product> productsList = new ArrayList<>();
+            productsList = ProductController.getProductController().getProductsList();
+
+            int productsIndex = 1;
+            for (Product product : productsList) {
+                System.out.println(productsIndex + ". "
+                        + product.getName()
+                        + "; Specifications: " + product.getProductDescription()
+                        + "; Price: " + product.getPrice() + " EUR"
+                        + "; Quantity left: " + product.getQuantity());
+                productsIndex++;
+            }
+            return productsIndex;
         } catch (PriceException e) {
             System.out.println(e.getMessage());
             debugInfo(e.getMessage(), e.fillInStackTrace());
-
+            return 0;
         } catch (ProductDatabaseException e) {
             System.out.println(e.getMessage());
             debugInfo(e.getMessage(), e.fillInStackTrace());
+            return 0;
         }
     }
 
-    public void addProductsToBasket() {
+    public void addProductsToBasket(int productsCount) {
         System.out.println("What products would you like to purchase today?/n ---");
         boolean continueAddingProductsToBasket = true;
 
@@ -52,17 +63,21 @@ public class ProductsList {
             }
             try {
                 clientProdSelection = validateAndReturnIntegerInput(scanner);
+
+                if (clientProdSelection > productsCount || clientProdSelection < -1) {
+                    throw new WrongInputException();
+                }
             } catch (WrongInputException e) {
                 System.out.println(e.getMessage());
                 debugInfo(e.getMessage(), e.fillInStackTrace());
                 displayProductsList();
-                addProductsToBasket();
+                addProductsToBasket(productsCount);
             }
 
             try {
                 ProductController.getProductController().addProductsToBascket(clientProdSelection);
             } catch (PriceException | ProductDatabaseException | WrongInputException |
-                     ExcessiveSelectedQuantityException e) {
+                    ExcessiveSelectedQuantityException e) {
                 System.out.println(e.getMessage());
                 debugInfo(e.getMessage(), e.fillInStackTrace());
 
@@ -96,7 +111,7 @@ public class ProductsList {
 
         } else {
             try {
-                ProductController.getProductController().displayProductsList();
+                ProductController.getProductController().getProductsList();
             } catch (PriceException | ProductDatabaseException e) {
                 System.out.println(e.getMessage());
                 debugInfo(e.getMessage(), e.fillInStackTrace());

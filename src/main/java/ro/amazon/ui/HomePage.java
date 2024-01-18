@@ -4,8 +4,6 @@ import ro.amazon.controller.UserController;
 import ro.amazon.utils.InputHandler;
 import ro.amazon.utils.Scan;
 
-import java.util.Scanner;
-
 public class HomePage {
     private UserLogin userLogin = new UserLogin();
     private ProductsList productsList = new ProductsList();
@@ -24,12 +22,9 @@ public class HomePage {
                     login();
                 } else if (loginOrCreate == 2) {
                     CreateUserPage.getCreateUserPageInstance().createNewUser();
-                    System.out.println("Please enter your credentials: ");
-                    login();
                 } else {
                     System.out.println("The action " + loginOrCreate + " does not exist. Please chose one of the available actions");
                 }
-                break;
             } catch (Exception e) {
                 System.out.println("Wrong input");
             }
@@ -43,7 +38,7 @@ public class HomePage {
             while (true) {
                 System.out.println(" - If you want to leave type -1 \n - To buy a product type 1");
 
-                productsList.displayProductsList();
+                int productsCount = productsList.displayProductsList();
 
                 try {
 
@@ -51,7 +46,7 @@ public class HomePage {
                     if (actionNumber == -1) {
                         UserController.getInstance().signOut();
                     } else {
-                        productsList.addProductsToBasket();
+                        productsList.addProductsToBasket(productsCount);
                         System.out.println("\n---");
                     }
 
