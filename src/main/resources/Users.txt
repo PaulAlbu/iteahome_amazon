@@ -5,3 +5,4 @@ alesss;Ales1!;sada@g.co
 alessss;Alessss1!;asdasdas@gmail.com
 aaaaaaaaa;aaaaaaaaA1!;aaaaaaaaa@gmail.com
 admin;Password1!;admin@gmail.com
+admin2;Password1!;admins@gmail.com
