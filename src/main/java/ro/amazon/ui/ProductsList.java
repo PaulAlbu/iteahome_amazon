@@ -46,12 +46,12 @@ public class ProductsList {
 
             int clientProdSelection = 0;
 
-            if (clientProdSelection == -1) {
-
-                UserController.getInstance().signOut();
-            }
             try {
                 clientProdSelection = validateAndReturnIntegerInput(scanner);
+                if (clientProdSelection == -1) {
+
+                    UserController.getInstance().signOut();
+                }
             } catch (WrongInputException e) {
                 System.out.println(e.getMessage());
                 debugInfo(e.getMessage(), e.fillInStackTrace());
