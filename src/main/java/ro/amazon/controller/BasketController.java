@@ -34,20 +34,23 @@ public class BasketController {
 
     public void displayBasket() {
         HashMap<Product, Integer> basket = basketService.getBasket();
-        System.out.println("Products in basket:");
-        double totalCost = 0;
-        int productNr = 1;
-        for (Map.Entry<Product, Integer> entry : basket.entrySet()) {
-            Product product = entry.getKey();
-            Integer productQuantity = entry.getValue();
-            double productPrice = product.getPrice() * productQuantity;
-            totalCost += productPrice;
-            System.out.printf("%d. Product: %s - Quantity: %d; Cost: %.2f EUR%n", productNr, product.getName(), productQuantity, productPrice);
-            productNr++;
+        if (basket.isEmpty()){
+            System.out.println("You have no products in your basket.");
+        } else {
+            System.out.println("Products in basket:");
+            double totalCost = 0;
+            int productNr = 1;
+            for (Map.Entry<Product, Integer> entry : basket.entrySet()) {
+                Product product = entry.getKey();
+                Integer productQuantity = entry.getValue();
+                double productPrice = product.getPrice() * productQuantity;
+                totalCost += productPrice;
+                System.out.printf("%d. Product: %s - Quantity: %d; Cost: %.2f EUR%n", productNr, product.getName(), productQuantity, productPrice);
+                productNr++;
+            }
+            System.out.printf("---%nTotal cost is: %.2f EUR%n", totalCost);
+            editBasketOrGoToCheckout(basket);
         }
-        System.out.printf("---%nTotal cost is: %.2f EUR%n", totalCost);
-        editBasketOrGoToCheckout(basket);
-
     }
 
     public void editBasketOrGoToCheckout(HashMap<Product, Integer> basket) {

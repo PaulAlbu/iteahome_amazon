@@ -2,3 +2,7 @@ mirabela;Password!1;mirabela@gmail.com
 martian;Password!1;martian@gmail.com
 qwerty;Qweerty1!;asdads@gmail.com
 alesss;Ales1!;sada@g.co
+alessss;Alessss1!;asdasdas@gmail.com
+aaaaaaaaa;aaaaaaaaA1!;aaaaaaaaa@gmail.com
+admin;Password1!;admin@gmail.com
+admin2;Password1!;admins@gmail.com

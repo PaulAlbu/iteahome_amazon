@@ -37,7 +37,7 @@ public class ProductsList {
     }
 
     public void addProductsToBasket() {
-        System.out.println("What products would you like to purchase today?/n ---");
+        System.out.println("What products would you like to purchase today?\n ---");
         boolean continueAddingProductsToBasket = true;
 
         while (continueAddingProductsToBasket) {

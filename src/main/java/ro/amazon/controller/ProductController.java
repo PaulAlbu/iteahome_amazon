@@ -57,31 +57,54 @@ public class ProductController {
 
     public void addProductsToBascket(int clientProdSelection) throws ProductDatabaseException, ExcessiveSelectedQuantityException, WrongInputException {
         int productsIndex = 1;
-        if (clientProdSelection > productsList.size()) {
+        if (clientProdSelection > productsList.size() || clientProdSelection <= -2) {
             throw new WrongInputException();
         }
+
 
         int quantityRequestedByBuyer = 0;
         for (Product product : productsList) {
             if (clientProdSelection == productsIndex) {
-                System.out.println("Please select quantity:");
-                try {
-                    quantityRequestedByBuyer = validateAndReturnIntegerInput(scanner);
-                } catch (WrongInputException e) {
-                    System.out.println(e.getMessage());
-                    debugInfo(e.getMessage(), e.fillInStackTrace());
-                    addProductsToBascket(clientProdSelection);
-                }
+                boolean isQuantityLowerThanZero = true;
+                while (isQuantityLowerThanZero == true) {
+                    System.out.println("Please select quantity:");
+                    try {
+                        quantityRequestedByBuyer = validateAndReturnIntegerInput(scanner);
+                    } catch (WrongInputException e) {
+                        System.out.println(e.getMessage());
+                        debugInfo(e.getMessage(), e.fillInStackTrace());
+                        addProductsToBascket(clientProdSelection);
+                    }
 
-                if (quantityRequestedByBuyer <= product.getQuantity() && quantityRequestedByBuyer >0 ) {
-                    product.setQuantity(product.getQuantity() - quantityRequestedByBuyer);
-                    basketService.addProductsToBasket(product, quantityRequestedByBuyer);
-                    productService.checkout(product.getProductID(), quantityRequestedByBuyer);
-                } else {
-                    throw new ExcessiveSelectedQuantityException();
+                    if (quantityRequestedByBuyer <= product.getQuantity() && quantityRequestedByBuyer > 0) {
+                        product.setQuantity(product.getQuantity() - quantityRequestedByBuyer);
+                        basketService.addProductsToBasket(product, quantityRequestedByBuyer);
+                        productService.checkout(product.getProductID(), quantityRequestedByBuyer);
+                        isQuantityLowerThanZero = false;
+
+                    } else if (quantityRequestedByBuyer > product.getQuantity()) {
+                        try {
+                            throw new ExcessiveSelectedQuantityException();
+                        } catch (ExcessiveSelectedQuantityException e) {
+                            System.out.println(e.getMessage());
+                            debugInfo(e.getMessage(), e.fillInStackTrace());
+                        }
+
+
+                    } else if (quantityRequestedByBuyer <= 0) {
+                        try {
+                            throw new WrongInputException();
+                        } catch (WrongInputException e) {
+                            System.out.println(e.getMessage());
+                            debugInfo(e.getMessage(), e.fillInStackTrace());
+                        }
+                    }
+
                 }
-            }
-            productsIndex++;
+            } productsIndex++;
         }
     }
+
 }
+
+
