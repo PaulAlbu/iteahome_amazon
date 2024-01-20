@@ -57,7 +57,7 @@ public class ProductController {
 
     public void addProductsToBascket(int clientProdSelection) throws ProductDatabaseException, ExcessiveSelectedQuantityException, WrongInputException {
         int productsIndex = 1;
-        if (clientProdSelection > productsList.size() || clientProdSelection <= -2) {
+        if (clientProdSelection > productsList.size() || clientProdSelection <= -2 || clientProdSelection == 0) {
             throw new WrongInputException();
         }
 
