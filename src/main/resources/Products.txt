@@ -2,3 +2,4 @@ Toy car;50cm per 20cm per 7 cm;15.99;4437;1
 Hammer;7kg;19.99;5823;2
 Drum set;50cm per 20cm per 7 cm;15.99;5000;3
 Airplanes ;20cm per 100cm;15.99;1000;2
+Tanks ;20cm per 100cm;15.99;1000;2
